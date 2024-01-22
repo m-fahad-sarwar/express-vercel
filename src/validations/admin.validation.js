@@ -8,12 +8,31 @@ const login = {
   }),
 };
 
-const addAgency = {
+const createAgency = {
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required().custom(password),
+    logoUrl: Joi.string().required().custom(password),
     name: Joi.string().required(),
     // role: Joi.string().required(),
+  }),
+};
+const updateAgency = {
+  params: Joi.object().keys({
+    agencyId: Joi.required().custom(objectId),
+  }),
+  body: Joi.object()
+    .keys({
+      email: Joi.string().email(),
+      name: Joi.string().custom(password),
+      logoUrl: Joi.string(),
+      isActive: Joi.boolean(),
+      isAssigned: Joi.boolean()
+    })
+    .min(1),
+};
+const deleteAgency = {
+  params: Joi.object().keys({
+    agencyId: Joi.string().custom(objectId),
   }),
 };
 const createUser = {
@@ -25,10 +44,9 @@ const createUser = {
   }),
 };
 
-const getUsers = {
+const getAgencies = {
   query: Joi.object().keys({
     name: Joi.string(),
-    role: Joi.string(),
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
@@ -61,9 +79,11 @@ const deleteUser = {
 };
 module.exports = {
   login,
-  addAgency,
+  createAgency,
+  deleteAgency,
+  updateAgency,
   createUser,
-  getUsers,
+  getAgencies,
   getUser,
   updateUser,
   deleteUser,

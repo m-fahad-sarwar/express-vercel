@@ -1,11 +1,19 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
+const pick = require('../utils/pick');
 const { authService, userService, tokenService, emailService, adminSevice } = require('../services');
 
-const addAgency = catchAsync(async (req, res) => {
-  const user = await userService.createUser(req.body);
-  const tokens = await tokenService.generateAuthTokens(user);
-  res.status(httpStatus.CREATED).send({ user, tokens });
+const createAgency = catchAsync(async (req, res) => {
+  const agency = await adminSevice.createAgency(req.body);
+  res.status(httpStatus.CREATED).send({ agency });
+});
+const updateAgency = catchAsync(async (req, res) => {
+  const agency = await adminSevice.updateAgencyById(req.params.agencyId, req.body);
+  res.send(agency);
+});
+const deleteAgency = catchAsync(async (req, res) => {
+  await adminSevice.deleteAgencyById(req.params.agencyId);
+  res.status(httpStatus.NO_CONTENT).send();
 });
 
 const login = catchAsync(async (req, res) => {
@@ -41,12 +49,14 @@ const createUser = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).send(user);
 });
 
-const getUsers = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['name', 'role']);
+const getAgencies = catchAsync(async (req, res) => {
+  const filter = pick(req.query, ['name']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
-  const result = await userService.queryUsers(filter, options);
+  const result = await adminSevice.queryAgencies(filter, options);
   res.send(result);
 });
+
+
 
 const getUser = catchAsync(async (req, res) => {
   const user = await userService.getUserById(req.params.userId);
@@ -67,14 +77,16 @@ const deleteUser = catchAsync(async (req, res) => {
 });
 
 module.exports = {
-  addAgency,
+  createAgency,
+  deleteAgency,
+  updateAgency,
   login,
   logout,
   refreshTokens,
   forgotPassword,
   resetPassword,
   createUser,
-  getUsers,
+  getAgencies,
   getUser,
   updateUser,
   deleteUser,

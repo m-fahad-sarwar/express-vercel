@@ -4,7 +4,18 @@ const userService = require('./user.service');
 const Token = require('../models/token.model');
 const ApiError = require('../utils/ApiError');
 const { tokenTypes } = require('../config/tokens');
-const { Admin } = require('../models')
+const { Admin, Agency } = require('../models')
+
+
+/**
+ * Get user by id
+ * @param {ObjectId} id
+ * @returns {Promise<User>}
+ */
+const getAgencyById = async (id) => {
+  return Agency.findById(id);
+};
+
 
 /**
  * Login with username and password
@@ -18,6 +29,38 @@ const loginUserWithEmailAndPassword = async (email, password) => {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
   }
   return user;
+};
+const queryAgencies = async (filter, options) => {
+  const agencies = await Agency.paginate(filter, options);
+  return agencies;
+};
+const createAgency = async (userBody) => {
+  const agency = await Agency.findOne({
+    name: userBody.name
+  })
+  if (agency && agency.name === userBody.name) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Agency Name already taken');
+  }
+  return Agency.create(userBody);
+
+};
+const updateAgencyById = async (agencyId, updateBody) => {
+  const agency = await getAgencyById(agencyId);
+  if (!agency) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Agency not found');
+  }
+
+  Object.assign(agency, updateBody);
+  await agency.save();
+  return agency;
+};
+const deleteAgencyById = async (agencyId) => {
+  const agency = await getAgencyById(agencyId);
+  if (!agency) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Agency not found');
+  }
+  await agency.remove();
+  return agency;
 };
 
 /**
@@ -97,4 +140,8 @@ module.exports = {
   refreshAuth,
   resetPassword,
   verifyEmail,
+  queryAgencies,
+  createAgency,
+  updateAgencyById,
+  deleteAgencyById
 };

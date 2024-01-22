@@ -35,6 +35,11 @@ const userSchema = mongoose.Schema(
       // },
       private: true, // used by the toJSON plugin
     },
+    agencyId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'Agency',
+    },
     isActive: {
       type: Boolean,
       default: false
