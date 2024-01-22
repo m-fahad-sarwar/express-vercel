@@ -29,9 +29,8 @@ If you would still prefer to do the installation manually, follow these steps:
 Clone the repo:
 
 ```bash
-git clone --depth 1 https://github.com/hagopj13/node-express-boilerplate.git
-cd node-express-boilerplate
-npx rimraf ./.git
+git clone --depth 1 https://github.com/hagopj13/node-express-boilerplate.git](https://github.com/rananwm/TraveloAcco-Backend.git
+cd TraveloAcco-Backend
 ```
 
 Install the dependencies:
@@ -189,29 +188,6 @@ src\
  |--index.js        # App entry point
 ```
 
-## API Documentation
-
-To view the list of available APIs and their specifications, run the server and go to `http://localhost:3000/v1/docs` in your browser. This documentation page is automatically generated using the [swagger](https://swagger.io/) definitions written as comments in the route files.
-
-### API Endpoints
-
-List of available routes:
-
-**Auth routes**:\
-`POST /v1/auth/register` - register\
-`POST /v1/auth/login` - login\
-`POST /v1/auth/refresh-tokens` - refresh auth tokens\
-`POST /v1/auth/forgot-password` - send reset password email\
-`POST /v1/auth/reset-password` - reset password\
-`POST /v1/auth/send-verification-email` - send verification email\
-`POST /v1/auth/verify-email` - verify email
-
-**User routes**:\
-`POST /v1/users` - create a user\
-`GET /v1/users` - get all users\
-`GET /v1/users/:userId` - get user\
-`PATCH /v1/users/:userId` - update user\
-`DELETE /v1/users/:userId` - delete user
 
 ## Error Handling
 
@@ -424,16 +400,6 @@ To modify the ESLint configuration, update the `.eslintrc.json` file. To modify 
 To prevent a certain file or directory from being linted, add it to `.eslintignore` and `.prettierignore`.
 
 To maintain a consistent coding style across different IDEs, the project contains `.editorconfig`
-
-## Contributing
-
-Contributions are more than welcome! Please check out the [contributing guide](CONTRIBUTING.md).
-
-## Inspirations
-
-- [danielfsousa/express-rest-es2017-boilerplate](https://github.com/danielfsousa/express-rest-es2017-boilerplate)
-- [madhums/node-express-mongoose](https://github.com/madhums/node-express-mongoose)
-- [kunalkapadia/express-mongoose-es6-rest-api](https://github.com/kunalkapadia/express-mongoose-es6-rest-api)
 
 ## License
 
