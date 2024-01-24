@@ -15,8 +15,7 @@ const loginUserWithEmailAndPassword = async (email, password) => {
   const user = await userService.getUserByEmail(email);
   if (!user || !(await user.isPasswordMatch(password))) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
-  }
-  else if (!user.isActive) {
+  } else if (!user.isActive) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'User not active');
   }
   return user;
