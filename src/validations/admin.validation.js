@@ -26,7 +26,7 @@ const updateAgency = {
       name: Joi.string().custom(password),
       logoUrl: Joi.string(),
       isActive: Joi.boolean(),
-      isAssigned: Joi.boolean()
+      isAssigned: Joi.boolean(),
     })
     .min(1),
 };
@@ -40,7 +40,8 @@ const createUser = {
     email: Joi.string().required().email(),
     password: Joi.string().required().custom(password),
     name: Joi.string().required(),
-    role: Joi.string().required().valid('user', 'admin'),
+    role: Joi.string().required().valid('AGENCY_ADMIN', 'AGENCY_USER'),
+    agencyId: Joi.string().required(),
   }),
 };
 

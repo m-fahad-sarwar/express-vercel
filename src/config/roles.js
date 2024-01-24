@@ -1,5 +1,5 @@
 const allRoles = {
-  AGENCY_ADMIN: [],
+  AGENCY_ADMIN: ['getUsers', 'manageUsers'],
   AGENCY_USER: [],
   SUPER_ADMIN: ['getUsers', 'manageUsers'],
 };
