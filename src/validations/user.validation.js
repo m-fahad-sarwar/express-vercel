@@ -6,7 +6,7 @@ const createUser = {
     email: Joi.string().required().email(),
     password: Joi.string().required().custom(password),
     name: Joi.string().required(),
-    role: Joi.string().required().valid('AGENCY_ADMIN', 'AGENCY_USER'), // here SUPER_ADMIN should not be an option
+    role: Joi.string().required().valid('AGENCY_ADMIN', 'AGENCY_USER', "SUPER_ADMIN"),
     agencyId: Joi.string().required(),
   }),
 };
