@@ -19,7 +19,7 @@ const defaultRoutes = [
   },
   {
     path: '/agency',
-    route: userRoute,
+    route: agencyRoute,
   },
   {
     path: '/admin',

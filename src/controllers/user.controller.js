@@ -10,13 +10,21 @@ const createUser = catchAsync(async (req, res) => {
 });
 
 const getUsers = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['name', 'role']);
+  const agencyId = req.agencyId;
+
+  const filter = { ...pick(req.query, ['name', 'role']), agencyId };
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
-  const result = await userService.queryUsers(filter, options);
-  res.send(result);
+
+  try {
+    const result = await userService.queryUsers(filter, options);
+    res.send(result);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 const getUser = catchAsync(async (req, res) => {
+  console.log(' :>> ');
   const user = await userService.getUserById(req.params.userId);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
