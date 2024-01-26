@@ -112,6 +112,38 @@ const generateVerifyEmailToken = async (user) => {
   return verifyEmailToken;
 };
 
+function getBearerToken(req) {
+  const authorizationHeader = req.headers['authorization'];
+
+  if (!authorizationHeader) {
+    return null; // No Authorization header
+  }
+
+  const [bearer, token] = authorizationHeader.split(' ');
+
+  if (bearer.toLowerCase() !== 'bearer' || !token) {
+    return null; // Malformed Authorization header
+  }
+
+  return token;
+}
+
+function decodeBearerToken(req) {
+  const token = getBearerToken(req);
+
+  if (!token) {
+    return null; // No valid Bearer token
+  }
+
+  try {
+    const decodedToken = jwt.verify(token, config.jwt.secret); // Replace with your actual secret key
+    return decodedToken;
+  } catch (error) {
+    console.error('Error decoding token:', error.message);
+    return null; // Invalid token or signature
+  }
+}
+
 module.exports = {
   generateToken,
   saveToken,
@@ -119,4 +151,5 @@ module.exports = {
   generateAuthTokens,
   generateResetPasswordToken,
   generateVerifyEmailToken,
+  decodeBearerToken,
 };

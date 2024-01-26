@@ -3,13 +3,14 @@ const auth = require('../../middlewares/auth');
 const validate = require('../../middlewares/validate');
 const userValidation = require('../../validations/user.validation');
 const userController = require('../../controllers/user.controller');
+const agencyMiddleware = require('../../middlewares/agency');
 
 const router = express.Router();
 
 router
   .route('/')
   .post(auth('manageUsers'), validate(userValidation.createUser), userController.createUser)
-  .get(auth('getUsers'), validate(userValidation.getUsers), userController.getUsers);
+  .get(auth('getUsers'), agencyMiddleware, validate(userValidation.getUsers), userController.getUsers);
 
 router
   .route('/:userId')
@@ -18,4 +19,3 @@ router
   .delete(auth('manageUsers'), validate(userValidation.deleteUser), userController.deleteUser);
 
 module.exports = router;
-
