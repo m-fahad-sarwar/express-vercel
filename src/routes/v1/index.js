@@ -4,6 +4,7 @@ const userRoute = require('./user.route');
 const docsRoute = require('./docs.route');
 const adminRoute = require('./admin.route');
 const agencyRoute = require('./agency.route');
+const userGroupRoute = require('./userGroup.route');
 const config = require('../../config/config');
 
 const router = express.Router();
@@ -24,6 +25,10 @@ const defaultRoutes = [
   {
     path: '/admin',
     route: adminRoute,
+  },
+  {
+    path: '/usergroup',
+    route: userGroupRoute,
   },
 ];
 

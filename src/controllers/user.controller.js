@@ -10,7 +10,7 @@ const createUser = catchAsync(async (req, res) => {
 });
 
 const getUsers = catchAsync(async (req, res) => {
-  const agencyId = req.agencyId;
+  const agencyId = req.body.agencyId;
 
   const filter = { ...pick(req.query, ['name', 'role']), agencyId };
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
@@ -24,7 +24,6 @@ const getUsers = catchAsync(async (req, res) => {
 });
 
 const getUser = catchAsync(async (req, res) => {
-  console.log(' :>> ');
   const user = await userService.getUserById(req.params.userId);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
