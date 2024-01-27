@@ -13,26 +13,26 @@ const createUserGroup = catchAsync(async (req, res) => {
 const getUserGroupById = async (id) => Usergroup.findById(id);
 
 const updateUserGroup = catchAsync(async (req, res) => {
-  const existingUserGroup = await getUserGroupById(req.params.user_groupId);
-  const existingAgencyIdString = existingUserGroup.agencyId.toString();
+  const UserGroup = await getUserGroupById(req.params.userGroupId);
+  const agencyIdString = UserGroup.agencyId.toString();
 
-  if (existingAgencyIdString !== req.body.agencyId) {
+  if (agencyIdString !== req.body.agencyId) {
     return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to update this user group.' });
   }
 
-  const updatedUserGroup = await usergroup.updateUserGroupById(req.params.user_groupId, req.body);
+  const updatedUserGroup = await usergroup.updateUserGroupById(req.params.userGroupId, req.body);
   res.send(updatedUserGroup);
 });
 
 const deleteUserGroup = catchAsync(async (req, res) => {
-  const existingUserGroup = await getUserGroupById(req.params.user_groupId);
-  const existingAgencyIdString = existingUserGroup.agencyId.toString();
+  const UserGroup = await getUserGroupById(req.params.userGroupId);
+  const agencyIdString = UserGroup.agencyId.toString();
 
-  if (existingAgencyIdString !== req.body.agencyId) {
+  if (agencyIdString !== req.body.agencyId) {
     return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to delete this user group.' });
   }
 
-  await usergroup.deleteUserGroupById(req.params.user_groupId);
+  await usergroup.deleteUserGroupById(req.params.userGroupId);
   res.status(httpStatus.NO_CONTENT).send();
 });
 

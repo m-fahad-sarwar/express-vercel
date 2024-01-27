@@ -17,7 +17,7 @@ router
   .get(usergroupController.getUserGroups);
 
 router
-  .route('/:user_groupId')
+  .route('/:userGroupId')
   .patch(agencyMiddleware, validate(userGroupValidation.updateAgency), usergroupController.updateUserGroup)
   .delete(agencyMiddleware, validate(userGroupValidation.deleteAgency), usergroupController.deleteUserGroup);
 

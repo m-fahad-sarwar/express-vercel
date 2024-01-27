@@ -4,7 +4,7 @@ const { objectId } = require('./custom.validation');
 const createUsergroup = {
   body: Joi.object().keys({
     name: Joi.string().required(),
-    UsergroupId: Joi.string().required(),
+    userGroupId: Joi.string().required(),
     apiPermissions: Joi.array().items(Joi.string()).required(),
     tabPermissions: Joi.object()
       .keys({
@@ -17,12 +17,12 @@ const createUsergroup = {
 
 const updateUsergroup = {
   params: Joi.object().keys({
-    user_groupId: Joi.required().custom(objectId),
+    userGroupId: Joi.required().custom(objectId),
   }),
   body: Joi.object()
     .keys({
       name: Joi.string(),
-      UsergroupId: Joi.string(),
+      userGroupId: Joi.string(),
       apiPermissions: Joi.array().items(Joi.string()),
       tabPermissions: Joi.object().keys({
         dashboard: Joi.array().items(Joi.string()),
@@ -38,7 +38,7 @@ const updateUsergroup = {
 
 const deleteUsergroup = {
   params: Joi.object().keys({
-    user_groupId: Joi.string().custom(objectId),
+    userGroupId: Joi.string().custom(objectId),
   }),
 };
 
