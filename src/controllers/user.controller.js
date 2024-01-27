@@ -10,7 +10,7 @@ const createUser = catchAsync(async (req, res) => {
 });
 
 const getUsers = catchAsync(async (req, res) => {
-  const agencyId = req.agencyId;
+  const agencyId = req.body.agencyId;
 
   const filter = { ...pick(req.query, ['name', 'role']), agencyId };
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
