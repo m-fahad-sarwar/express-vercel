@@ -3,47 +3,32 @@ const ApiError = require('../utils/ApiError');
 const UsergroupModel = require('../models/usergroup.model');
 
 const createUserGroup = async (userBody) => {
-  const userGroup = await UsergroupModel.findOne({
-    name: userBody.name,
-  });
+  const userGroup = await UsergroupModel.findOne({ name: userBody.name });
 
-  if (userGroup && userGroup.name === userBody.name) {
+  if (userGroup) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'UserGroup Name already taken');
   }
 
   return UsergroupModel.create(userBody);
 };
 
-/**
- * Get user by id
- * @param {ObjectId} id
- * @returns {Promise<User>}
- */
-const getUserGroupById = async (id) => {
-  return UserGroup.findById(id);
-};
+const getUserGroupById = async (id) => UsergroupModel.findById(id);
 
-/**
- * Login with username and password
- * @param {string} email
- * @param {string} password
- * @returns {Promise<User>}
- */
-const queryAgencies = async (filter, options) => {
-  const agencies = await UserGroup.paginate(filter, options);
-  return agencies;
-};
+const queryUserGroup = async (filter, options) => UsergroupModel.paginate(filter, options);
 
 const updateUserGroupById = async (userGroupId, updateBody) => {
   const userGroup = await getUserGroupById(userGroupId);
+
   if (!userGroup) {
     throw new ApiError(httpStatus.NOT_FOUND, 'UserGroup not found');
   }
 
   Object.assign(userGroup, updateBody);
   await userGroup.save();
+
   return userGroup;
 };
+
 const deleteUserGroupById = async (userGroupId) => {
   const userGroup = await getUserGroupById(userGroupId);
   if (!userGroup) {
@@ -54,7 +39,7 @@ const deleteUserGroupById = async (userGroupId) => {
 };
 
 module.exports = {
-  queryAgencies,
+  queryUserGroup,
   createUserGroup,
   updateUserGroupById,
   deleteUserGroupById,

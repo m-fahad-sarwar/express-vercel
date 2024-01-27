@@ -4,8 +4,7 @@ const userService = require('./user.service');
 const Token = require('../models/token.model');
 const ApiError = require('../utils/ApiError');
 const { tokenTypes } = require('../config/tokens');
-const { Admin, Agency } = require('../models')
-
+const { Admin, Agency } = require('../models');
 
 /**
  * Get user by id
@@ -16,7 +15,6 @@ const getAgencyById = async (id) => {
   return Agency.findById(id);
 };
 
-
 /**
  * Login with username and password
  * @param {string} email
@@ -24,7 +22,7 @@ const getAgencyById = async (id) => {
  * @returns {Promise<User>}
  */
 const loginUserWithEmailAndPassword = async (email, password) => {
-  const user = await Admin.findOne({ email })
+  const user = await Admin.findOne({ email });
   if (!user || !(await user.isPasswordMatch(password))) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
   }
@@ -36,13 +34,12 @@ const queryAgencies = async (filter, options) => {
 };
 const createAgency = async (userBody) => {
   const agency = await Agency.findOne({
-    name: userBody.name
-  })
+    name: userBody.name,
+  });
   if (agency && agency.name === userBody.name) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Agency Name already taken');
   }
   return Agency.create(userBody);
-
 };
 const updateAgencyById = async (agencyId, updateBody) => {
   const agency = await getAgencyById(agencyId);
@@ -143,5 +140,5 @@ module.exports = {
   queryAgencies,
   createAgency,
   updateAgencyById,
-  deleteAgencyById
+  deleteAgencyById,
 };

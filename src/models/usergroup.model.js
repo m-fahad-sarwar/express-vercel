@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { toJSON, paginate } = require('./plugins');
 
 const UsergroupSchema = new mongoose.Schema({
   name: {
@@ -24,6 +25,10 @@ const UsergroupSchema = new mongoose.Schema({
     },
   },
 });
+
+// Add plugins that convert mongoose to json and enable pagination
+UsergroupSchema.plugin(toJSON);
+UsergroupSchema.plugin(paginate);
 
 const UsergroupModel = mongoose.model('UsergroupModel', UsergroupSchema);
 
