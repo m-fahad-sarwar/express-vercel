@@ -7,8 +7,9 @@ const UsergroupSchema = new mongoose.Schema({
     required: true,
   },
   agencyId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
+    ref: 'Agency',
   },
   apiPermissions: {
     type: [String],
@@ -30,6 +31,6 @@ const UsergroupSchema = new mongoose.Schema({
 UsergroupSchema.plugin(toJSON);
 UsergroupSchema.plugin(paginate);
 
-const UsergroupModel = mongoose.model('UsergroupModel', UsergroupSchema);
+const Usergroup = mongoose.model('Usergroup', UsergroupSchema);
 
-module.exports = UsergroupModel;
+module.exports = Usergroup;

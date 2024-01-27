@@ -10,9 +10,7 @@ const agencyMiddleware = (req, res, next) => {
 
     const agencyId = decodedToken.sub.agencyId;
 
-    console.log('Sending request');
-
-    req.body.agencyId = agencyId; // Add agencyId to req.body
+    req.body.agencyId = agencyId;
     next();
   } catch (error) {
     console.error('Error decoding token:', error.message);

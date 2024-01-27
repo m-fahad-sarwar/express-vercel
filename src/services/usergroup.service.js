@@ -1,20 +1,14 @@
 const httpStatus = require('http-status');
 const ApiError = require('../utils/ApiError');
-const UsergroupModel = require('../models/usergroup.model');
+const Usergroup = require('../models/usergroup.model');
 
 const createUserGroup = async (userBody) => {
-  const userGroup = await UsergroupModel.findOne({ name: userBody.name });
-
-  if (userGroup) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'UserGroup Name already taken');
-  }
-
-  return UsergroupModel.create(userBody);
+  return Usergroup.create(userBody);
 };
 
-const getUserGroupById = async (id) => UsergroupModel.findById(id);
+const getUserGroupById = async (id) => Usergroup.findById(id);
 
-const queryUserGroup = async (filter, options) => UsergroupModel.paginate(filter, options);
+const queryUserGroup = async (filter, options) => Usergroup.paginate(filter, options);
 
 const updateUserGroupById = async (userGroupId, updateBody) => {
   const userGroup = await getUserGroupById(userGroupId);
