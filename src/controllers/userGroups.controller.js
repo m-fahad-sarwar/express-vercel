@@ -1,11 +1,11 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
-const { usergroup } = require('../services');
+const { usergroupService } = require('../services');
 const pick = require('../utils/pick');
 const Usergroup = require('../models/usergroup.model');
 
 const createUserGroup = catchAsync(async (req, res) => {
-  const userGroup = await usergroup.createUserGroup(req.body);
+  const userGroup = await usergroupService.createUserGroup(req.body);
 
   res.status(httpStatus.CREATED).send({ userGroup });
 });
@@ -20,7 +20,7 @@ const updateUserGroup = catchAsync(async (req, res) => {
     return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to update this user group.' });
   }
 
-  const updatedUserGroup = await usergroup.updateUserGroupById(req.params.userGroupId, req.body);
+  const updatedUserGroup = await usergroupService.updateUserGroupById(req.params.userGroupId, req.body);
   res.send(updatedUserGroup);
 });
 
@@ -32,7 +32,7 @@ const deleteUserGroup = catchAsync(async (req, res) => {
     return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to delete this user group.' });
   }
 
-  await usergroup.deleteUserGroupById(req.params.userGroupId);
+  await usergroupService.deleteUserGroupById(req.params.userGroupId);
   res.status(httpStatus.NO_CONTENT).send();
 });
 
@@ -40,7 +40,7 @@ const getUserGroups = catchAsync(async (req, res) => {
   const agencyId = req.body.agencyId;
   const filter = { agencyId };
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
-  const result = await usergroup.queryUserGroup(filter, options);
+  const result = await usergroupService.queryUserGroup(filter, options);
   res.send(result);
 });
 

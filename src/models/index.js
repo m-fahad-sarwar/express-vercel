@@ -3,3 +3,4 @@ module.exports.User = require('./user.model');
 module.exports.Admin = require('./admin.modal');
 module.exports.Agency = require('./agency.model');
 module.exports.Bank = require('./bank.model');
+module.exports.Customer = require('./customer.model');

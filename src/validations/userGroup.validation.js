@@ -4,7 +4,6 @@ const { objectId } = require('./custom.validation');
 const createUsergroup = {
   body: Joi.object().keys({
     name: Joi.string().required(),
-    agencyId: Joi.string().required(),
     apiPermissions: Joi.array().items(Joi.string()),
     tabPermissions: Joi.object().pattern(Joi.string(), Joi.array().items(Joi.string())),
   }),
@@ -17,7 +16,6 @@ const updateUsergroup = {
   body: Joi.object()
     .keys({
       name: Joi.string(),
-      agencyId: Joi.string(),
       apiPermissions: Joi.array().items(Joi.string()),
       tabPermissions: Joi.object().pattern(Joi.string(), Joi.array().items(Joi.string())),
     })

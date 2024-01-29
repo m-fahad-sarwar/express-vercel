@@ -8,12 +8,12 @@ const router = express.Router();
 
 router
   .route('/')
-  .post(agencyMiddleware, validate(userGroupValidation.createUsergroup), usergroupController.createUserGroup)
+  .post(validate(userGroupValidation.createUsergroup), agencyMiddleware, usergroupController.createUserGroup)
   .get(agencyMiddleware, usergroupController.getUserGroups);
 
 router
   .route('/:userGroupId')
-  .patch(agencyMiddleware, validate(userGroupValidation.updateAgency), usergroupController.updateUserGroup)
-  .delete(agencyMiddleware, validate(userGroupValidation.deleteAgency), usergroupController.deleteUserGroup);
+  .patch(validate(userGroupValidation.updateUsergroup), agencyMiddleware, usergroupController.updateUserGroup)
+  .delete(validate(userGroupValidation.deleteUsergroup), agencyMiddleware, usergroupController.deleteUserGroup);
 
 module.exports = router;
