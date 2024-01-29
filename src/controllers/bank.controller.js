@@ -39,11 +39,10 @@ const deleteBank = catchAsync(async (req, res) => {
 
 const getBanks = catchAsync(async (req, res) => {
   const agencyId = req.body.agencyId;
-  const filter = { ...pick(req.query, ['name']) };
+  const filter = { agencyId };
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await bankService.queryBank(filter, options);
-  const filteredResult = result.results.filter((result) => result.agencyId == agencyId);
-  res.send({ ...result, results: filteredResult });
+  res.send(result);
 });
 
 module.exports = {
