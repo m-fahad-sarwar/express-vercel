@@ -8,6 +8,7 @@ const createUser = {
     name: Joi.string().required(),
     role: Joi.string().required().valid('AGENCY_USER'),
     agencyId: Joi.string().required(),
+    userGroupId: Joi.string().required(),
   }),
 };
 
