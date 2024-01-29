@@ -3,6 +3,7 @@ const catchAsync = require('../utils/catchAsync');
 const { bankService } = require('../services');
 const pick = require('../utils/pick');
 const Bank = require('../models/bank.model');
+const { Types } = require('mongoose');
 
 const createBank = catchAsync(async (req, res) => {
   const bank = await bankService.createBank(req.body);
@@ -14,9 +15,6 @@ const getBankById = async (id) => Bank.findById(id);
 
 const updateBank = catchAsync(async (req, res) => {
   const Bank = await getBankById(req.params.bankId);
-
-  // console.log('Bank :>> ', Bank);
-  // return;
   const agencyIdString = Bank.agencyId.toString();
 
   if (agencyIdString !== req.body.agencyId) {
@@ -40,10 +38,12 @@ const deleteBank = catchAsync(async (req, res) => {
 });
 
 const getBanks = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['name']);
+  const agencyId = req.body.agencyId;
+  const filter = { ...pick(req.query, ['name']) };
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await bankService.queryBank(filter, options);
-  res.send(result);
+  const filteredResult = result.results.filter((result) => result.agencyId == agencyId);
+  res.send({ ...result, results: filteredResult });
 });
 
 module.exports = {

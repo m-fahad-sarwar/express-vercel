@@ -1,6 +1,7 @@
 const httpStatus = require('http-status');
 const ApiError = require('../utils/ApiError');
 const Bank = require('../models/bank.model');
+const { Types } = require('mongoose');
 
 const createBank = async (bank) => {
   return Bank.create(bank);

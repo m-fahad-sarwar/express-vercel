@@ -9,7 +9,7 @@ const router = express.Router();
 router
   .route('/')
   .post(agencyMiddleware, validate(bankValidation.createBank), bankController.createBank)
-  .get(bankController.getBanks);
+  .get(agencyMiddleware, bankController.getBanks);
 
 router
   .route('/:bankId')
