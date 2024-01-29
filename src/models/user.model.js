@@ -40,14 +40,10 @@ const userSchema = mongoose.Schema(
       required: true,
       ref: 'Agency',
     },
-    userGroupId: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'UserGroup',
-    },
+    userGroupId: { type: mongoose.Schema.Types.ObjectId, ref: 'Usergroup' },
     isActive: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     role: {
       type: String,
