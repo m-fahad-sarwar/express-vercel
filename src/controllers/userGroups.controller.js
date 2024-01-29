@@ -37,7 +37,8 @@ const deleteUserGroup = catchAsync(async (req, res) => {
 });
 
 const getUserGroups = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['name']);
+  const agencyId = req.body.agencyId;
+  const filter = { agencyId };
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await usergroup.queryUserGroup(filter, options);
   res.send(result);

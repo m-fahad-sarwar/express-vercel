@@ -11,16 +11,10 @@ const createUser = catchAsync(async (req, res) => {
 
 const getUsers = catchAsync(async (req, res) => {
   const agencyId = req.body.agencyId;
-
-  const filter = { ...pick(req.query, ['name', 'role']), agencyId };
+  const filter = { agencyId };
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
-
-  try {
-    const result = await userService.queryUsers(filter, options);
-    res.send(result);
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
+  const result = await userService.queryUsers(filter, options);
+  res.send(result);
 });
 
 const getUser = catchAsync(async (req, res) => {

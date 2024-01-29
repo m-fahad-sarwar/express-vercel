@@ -8,13 +8,8 @@ const router = express.Router();
 
 router
   .route('/')
-  .post(
-    agencyMiddleware,
-    validate(userGroupValidation.createUsergroup),
-    agencyMiddleware,
-    usergroupController.createUserGroup
-  )
-  .get(usergroupController.getUserGroups);
+  .post(agencyMiddleware, validate(userGroupValidation.createUsergroup), usergroupController.createUserGroup)
+  .get(agencyMiddleware, usergroupController.getUserGroups);
 
 router
   .route('/:userGroupId')
