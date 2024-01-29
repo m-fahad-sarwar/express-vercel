@@ -5,13 +5,8 @@ const createUsergroup = {
   body: Joi.object().keys({
     name: Joi.string().required(),
     agencyId: Joi.string().required(),
-    apiPermissions: Joi.array().items(Joi.string()).required(),
-    tabPermissions: Joi.object()
-      .keys({
-        dashboard: Joi.array().items(Joi.string()).required(),
-        user: Joi.array().items(Joi.string()).required(),
-      })
-      .required(),
+    apiPermissions: Joi.array().items(Joi.string()),
+    tabPermissions: Joi.object().pattern(Joi.string(), Joi.array().items(Joi.string())),
   }),
 };
 
@@ -22,11 +17,9 @@ const updateUsergroup = {
   body: Joi.object()
     .keys({
       name: Joi.string(),
+      agencyId: Joi.string(),
       apiPermissions: Joi.array().items(Joi.string()),
-      tabPermissions: Joi.object().keys({
-        dashboard: Joi.array().items(Joi.string()),
-        user: Joi.array().items(Joi.string()),
-      }),
+      tabPermissions: Joi.object().pattern(Joi.string(), Joi.array().items(Joi.string())),
     })
     .min(1),
 };
