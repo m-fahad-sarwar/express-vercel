@@ -6,6 +6,8 @@ const createCustomer = {
     name: Joi.string().required(),
     customerType: Joi.string().required(),
     creditLimit: Joi.number().required(),
+    startingCredit: Joi.number(),
+    startingDebit: Joi.number(),
     passportNumber: Joi.string().required(),
     address: Joi.object()
       .keys({
@@ -33,6 +35,8 @@ const updateCustomer = {
       name: Joi.string().required(),
       customerType: Joi.string().required(),
       creditLimit: Joi.number().required(),
+      startingCredit: Joi.number(),
+      startingDebit: Joi.number(),
       passportNumber: Joi.string().required(),
       address: Joi.object()
         .keys({
