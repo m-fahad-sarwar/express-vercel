@@ -13,12 +13,11 @@ const createBank = catchAsync(async (req, res) => {
 
 const getBankById = async (id) => Bank.findById(id);
 
-const getSingleBank = catchAsync(async (req, res) => {
+const getBank = catchAsync(async (req, res) => {
   const Bank = await getBankById(req.params.bankId);
   const agencyIdString = Bank.agencyId.toString();
-  console.log('agencyIdString :>> ', agencyIdString, 'req.body.agencyId :>> ', req.body.agencyId);
   if (agencyIdString !== req.body.agencyId) {
-    return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to update this Bank Data.' });
+    return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to GET this Bank Data.' });
   }
 
   res.send(Bank);
@@ -41,7 +40,7 @@ const deleteBank = catchAsync(async (req, res) => {
   const agencyIdString = Bank.agencyId.toString();
 
   if (agencyIdString !== req.body.agencyId) {
-    return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to delete this user group.' });
+    return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to delete this Bank Data.' });
   }
 
   await bankService.deleteBankById(req.params.bankId);
@@ -61,5 +60,5 @@ module.exports = {
   deleteBank,
   updateBank,
   getBanks,
-  getSingleBank,
+  getBank,
 };

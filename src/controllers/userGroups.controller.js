@@ -12,11 +12,11 @@ const createUserGroup = catchAsync(async (req, res) => {
 
 const getUserGroupById = async (id) => Usergroup.findById(id);
 
-const getSingleUserGroup = catchAsync(async (req, res) => {
+const getUserGroup = catchAsync(async (req, res) => {
   const UserGroup = await getUserGroupById(req.params.userGroupId);
   const agencyIdString = UserGroup.agencyId.toString();
   if (agencyIdString !== req.body.agencyId) {
-    return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to update this UserGroup Data.' });
+    return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to GET this UserGroup Data.' });
   }
   res.send(UserGroup);
 });
@@ -26,7 +26,7 @@ const updateUserGroup = catchAsync(async (req, res) => {
   const agencyIdString = UserGroup.agencyId.toString();
 
   if (agencyIdString !== req.body.agencyId) {
-    return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to update this user group.' });
+    return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to update this UserGroup Data.' });
   }
 
   const updatedUserGroup = await usergroupService.updateUserGroupById(req.params.userGroupId, req.body);
@@ -38,7 +38,7 @@ const deleteUserGroup = catchAsync(async (req, res) => {
   const agencyIdString = UserGroup.agencyId.toString();
 
   if (agencyIdString !== req.body.agencyId) {
-    return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to delete this user group.' });
+    return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to delete this UserGroup Data.' });
   }
 
   await usergroupService.deleteUserGroupById(req.params.userGroupId);
@@ -58,5 +58,5 @@ module.exports = {
   deleteUserGroup,
   updateUserGroup,
   getUserGroups,
-  getSingleUserGroup,
+  getUserGroup,
 };

@@ -12,11 +12,11 @@ const createCustomer = catchAsync(async (req, res) => {
 
 const getCustomerById = async (id) => Customer.findById(id);
 
-const getSingleCustomer = catchAsync(async (req, res) => {
+const getCustomer = catchAsync(async (req, res) => {
   const Customer = await getCustomerById(req.params.customerId);
   const agencyIdString = Customer.agencyId.toString();
   if (agencyIdString !== req.body.agencyId) {
-    return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to update this Customer Data.' });
+    return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to GET this Customer Data.' });
   }
   res.send(Customer);
 });
@@ -58,5 +58,5 @@ module.exports = {
   deleteCustomer,
   updateCustomer,
   getCustomers,
-  getSingleCustomer,
+  getCustomer,
 };
