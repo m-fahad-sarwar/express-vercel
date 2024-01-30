@@ -6,6 +6,7 @@ const CustomerSchema = new mongoose.Schema(
     agencyId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
+      ref: 'Agency',
     },
     name: {
       type: String,
