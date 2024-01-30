@@ -19,12 +19,6 @@ const CustomerSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    startingCredit: {
-      type: Number,
-    },
-    startingDebit: {
-      type: Number,
-    },
     passportNumber: {
       type: String,
       required: true,
@@ -47,7 +41,7 @@ const CustomerSchema = new mongoose.Schema(
         required: true,
       },
       phone: {
-        type: String,
+        type: Number,
         required: true,
       },
     },
@@ -59,7 +53,7 @@ const CustomerSchema = new mongoose.Schema(
         type: String,
       },
       phone: {
-        type: String,
+        type: Number,
       },
     },
   },
