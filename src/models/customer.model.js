@@ -4,8 +4,9 @@ const { toJSON, paginate } = require('./plugins');
 const CustomerSchema = new mongoose.Schema(
   {
     agencyId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
+      ref: 'Agency',
     },
     name: {
       type: String,
