@@ -12,6 +12,15 @@ const createUserGroup = catchAsync(async (req, res) => {
 
 const getUserGroupById = async (id) => Usergroup.findById(id);
 
+const getSingleUserGroup = catchAsync(async (req, res) => {
+  const UserGroup = await getUserGroupById(req.params.userGroupId);
+  const agencyIdString = UserGroup.agencyId.toString();
+  if (agencyIdString !== req.body.agencyId) {
+    return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to update this UserGroup Data.' });
+  }
+  res.send(UserGroup);
+});
+
 const updateUserGroup = catchAsync(async (req, res) => {
   const UserGroup = await getUserGroupById(req.params.userGroupId);
   const agencyIdString = UserGroup.agencyId.toString();
@@ -49,4 +58,5 @@ module.exports = {
   deleteUserGroup,
   updateUserGroup,
   getUserGroups,
+  getSingleUserGroup,
 };

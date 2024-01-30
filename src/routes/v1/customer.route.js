@@ -13,6 +13,7 @@ router
 
 router
   .route('/:customerId')
+  .get(agencyMiddleware, customerController.getSingleCustomer)
   .patch(validate(customerValidation.updateCustomer), agencyMiddleware, customerController.updateCustomer)
   .delete(validate(customerValidation.deleteCustomer), agencyMiddleware, customerController.deleteCustomer);
 

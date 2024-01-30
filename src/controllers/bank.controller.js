@@ -13,6 +13,17 @@ const createBank = catchAsync(async (req, res) => {
 
 const getBankById = async (id) => Bank.findById(id);
 
+const getSingleBank = catchAsync(async (req, res) => {
+  const Bank = await getBankById(req.params.bankId);
+  const agencyIdString = Bank.agencyId.toString();
+  console.log('agencyIdString :>> ', agencyIdString, 'req.body.agencyId :>> ', req.body.agencyId);
+  if (agencyIdString !== req.body.agencyId) {
+    return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to update this Bank Data.' });
+  }
+
+  res.send(Bank);
+});
+
 const updateBank = catchAsync(async (req, res) => {
   const Bank = await getBankById(req.params.bankId);
   const agencyIdString = Bank.agencyId.toString();
@@ -50,4 +61,5 @@ module.exports = {
   deleteBank,
   updateBank,
   getBanks,
+  getSingleBank,
 };

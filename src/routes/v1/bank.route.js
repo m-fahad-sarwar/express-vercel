@@ -13,6 +13,7 @@ router
 
 router
   .route('/:bankId')
+  .get(agencyMiddleware, bankController.getSingleBank)
   .patch(agencyMiddleware, validate(bankValidation.updateBank), bankController.updateBank)
   .delete(agencyMiddleware, validate(bankValidation.deleteBank), bankController.deleteBank);
 
