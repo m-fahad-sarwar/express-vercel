@@ -6,8 +6,6 @@ const createCustomer = {
     name: Joi.string().required(),
     customerType: Joi.string().required(),
     creditLimit: Joi.number().required(),
-    startingCredit: Joi.number(),
-    startingDebit: Joi.number(),
     passportNumber: Joi.string().required(),
     address: Joi.object()
       .keys({
@@ -15,13 +13,13 @@ const createCustomer = {
         postalCode: Joi.string(),
         city: Joi.string().required(),
         country: Joi.string().required(),
-        phone: Joi.string().required(),
+        phone: Joi.number().required(),
       })
       .required(),
     contactPerson: Joi.object().keys({
       name: Joi.string(),
       designation: Joi.string(),
-      phone: Joi.string(),
+      phone: Joi.number(),
     }),
   }),
 };
@@ -35,8 +33,6 @@ const updateCustomer = {
       name: Joi.string().required(),
       customerType: Joi.string().required(),
       creditLimit: Joi.number().required(),
-      startingCredit: Joi.number(),
-      startingDebit: Joi.number(),
       passportNumber: Joi.string().required(),
       address: Joi.object()
         .keys({
@@ -44,13 +40,13 @@ const updateCustomer = {
           postalCode: Joi.string(),
           city: Joi.string().required(),
           country: Joi.string().required(),
-          phone: Joi.string().required(),
+          phone: Joi.number().required(),
         })
         .required(),
       contactPerson: Joi.object().keys({
         name: Joi.string(),
         designation: Joi.string(),
-        phone: Joi.string(),
+        phone: Joi.number(),
       }),
     })
     .min(1),

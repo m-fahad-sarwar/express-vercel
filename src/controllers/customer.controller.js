@@ -26,7 +26,7 @@ const updateCustomer = catchAsync(async (req, res) => {
   const agencyIdString = Customer.agencyId.toString();
 
   if (agencyIdString !== req.body.agencyId) {
-    return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to update this user group.' });
+    return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to update this Customer Data.' });
   }
 
   const updatedCustomer = await customerService.updateCustomerById(req.params.customerId, req.body);
@@ -38,7 +38,7 @@ const deleteCustomer = catchAsync(async (req, res) => {
   const agencyIdString = Customer.agencyId.toString();
 
   if (agencyIdString !== req.body.agencyId) {
-    return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to delete this user group.' });
+    return res.status(httpStatus.FORBIDDEN).send({ error: 'You are not allowed to delete this Customer Data.' });
   }
 
   await customerService.deleteCustomerById(req.params.customerId);
